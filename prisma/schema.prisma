@@ -11,6 +11,7 @@ datasource db {
 model Media {
   id           Int     @id @default(autoincrement())
   title        String
+  slug         String  @unique
   thumbnail    Json
   year         Int
   category     String
