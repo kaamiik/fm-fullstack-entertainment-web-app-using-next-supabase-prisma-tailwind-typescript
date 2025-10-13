@@ -16,11 +16,12 @@ type Thumbnail = {
 export default async function MediaPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
   const media = await prisma.media.findUnique({
     where: {
-      slug: params.slug,
+      slug,
     },
   });
 

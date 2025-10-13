@@ -27,7 +27,7 @@ async function main() {
         year: media.year,
         category: media.category,
         rating: media.rating,
-        isBookmarked: media.isBookmarked,
+        isBookmarked: false,
         isTrending: media.isTrending,
       },
 
@@ -38,7 +38,7 @@ async function main() {
         year: media.year,
         category: media.category,
         rating: media.rating,
-        isBookmarked: media.isBookmarked,
+        isBookmarked: false,
         isTrending: media.isTrending,
       },
     });
