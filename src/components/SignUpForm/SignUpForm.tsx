@@ -13,17 +13,34 @@ type SignUpSchema = z.infer<typeof signUpSchema>;
 
 function SignUpForm() {
   const [state, action, pending] = React.useActionState(signUp, undefined);
+
   const {
     register,
-    formState: { errors },
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
   } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
   });
 
+  const onSubmit = async (data: SignUpSchema) => {
+    // Create FormData to send to server action
+    const formData = new FormData();
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+
+    // Call the server action
+    action(formData);
+
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    reset();
+  };
+
   return (
     <div className="mx-auto max-w-[25rem] rounded-[10px] bg-blue-900 px-6 py-8">
       <h1 className="text-32 font-light text-white">Sign Up</h1>
-      <form action={action} className="mt-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
         <div className="grid gap-6">
           <FormInput
             {...register("email")}
@@ -50,8 +67,8 @@ function SignUpForm() {
             error={errors.confirmPassword?.message as string}
           />
         </div>
-        <Button className="mt-10" disabled={pending}>
-          {pending ? "Creating account..." : "Create an account"}
+        <Button className="mt-10" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Creating account..." : "Create an account"}
         </Button>
       </form>
       <AccountRedirect
