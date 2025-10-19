@@ -9,28 +9,54 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AccountRedirect from "../AccountRedirect";
 
 function SignUpForm() {
-  const [state, action] = React.useActionState(signUp, undefined);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setError,
   } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = (data: SignUpSchema) => {
-    React.startTransition(() => {
-      action(data);
-    });
-    reset();
+  const onSubmit = async (data: SignUpSchema) => {
+    try {
+      const result = await signUp(data);
+
+      if (result?.errors) {
+        if ("form" in result.errors) {
+          setError("root", { message: result.errors.form[0] });
+        } else {
+          if (result.errors.email) {
+            setError("email", { message: result.errors.email[0] });
+          }
+          if (result.errors.password) {
+            setError("password", { message: result.errors.password[0] });
+          }
+          if (result.errors.confirmPassword) {
+            setError("confirmPassword", {
+              message: result.errors.confirmPassword[0],
+            });
+          }
+        }
+      } else {
+        reset();
+      }
+    } catch (error) {
+      console.error("Sign up failed:", error);
+    }
   };
 
   return (
     <div className="mx-auto max-w-[25rem] rounded-[10px] bg-blue-900 px-6 py-8">
       <h1 className="text-32 font-light text-white">Sign Up</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
-        <div className="grid gap-6">
+        {errors.root?.message && (
+          <p className="mb-4 text-13 text-red-500 text-center">
+            {errors.root.message}
+          </p>
+        )}
+        <div className="grid gap-6 mt-4">
           <FormInput
             {...register("email")}
             label="Email"
@@ -65,11 +91,6 @@ function SignUpForm() {
         linkText="Login"
         href="/login"
       />
-      {state?.message && (
-        <div className="mt-4 p-3 bg-green-100 text-green-700 rounded text-sm">
-          {state.message}
-        </div>
-      )}
     </div>
   );
 }

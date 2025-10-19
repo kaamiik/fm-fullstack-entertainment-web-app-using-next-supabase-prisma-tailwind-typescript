@@ -1,20 +1,68 @@
-import { signUpSchema, FormState, SignUpSchema } from "@/app/lib/definitions";
+"use server";
 
-export async function signUp(state: FormState, data: SignUpSchema) {
-  // Server-side validation for security
-  const validatedFields = signUpSchema.safeParse(data);
+import { signUpSchema, type SignUpSchema } from "@/app/lib/definitions";
+import { prisma } from "@/lib/prisma";
+import bcrypt from "bcryptjs";
+
+export async function signUp(data: SignUpSchema) {
+  if (!process.env.DATABASE_URL) {
+    console.error("Missing DATABASE_URL environment variable");
+    return {
+      errors: {
+        form: [
+          "Server is not configured to access the database. Please set DATABASE_URL.",
+        ],
+      },
+    };
+  }
+  const validateFields = signUpSchema.safeParse(data);
 
   // If server-side validation fails, return errors
-  if (!validatedFields.success) {
+  if (!validateFields.success) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      errors: validateFields.error.flatten().fieldErrors,
     };
   }
 
-  const { email, password } = validatedFields.data;
+  const { email, password } = validateFields.data;
 
-  // TODO: Call the provider or db to create a user...
-  console.log("Creating user:", { email, password });
+  try {
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
 
-  return { message: "User created successfully!" };
+    if (existingUser) {
+      return {
+        errors: {
+          email: ["A user with this email already exists."],
+        },
+      };
+    }
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+      },
+    });
+
+    console.log("Created user:", user.id);
+
+    return {
+      message: "User created successfully!",
+      userId: user.id,
+    };
+  } catch (error) {
+    console.error("Database error:", error);
+    return {
+      errors: {
+        form: [
+          "An error occurred while creating your account. Please try again.",
+        ],
+      },
+    };
+  }
 }
