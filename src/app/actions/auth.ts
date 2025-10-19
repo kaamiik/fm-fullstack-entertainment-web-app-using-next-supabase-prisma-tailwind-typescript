@@ -34,7 +34,7 @@ export async function signUp(data: SignUpSchema) {
     if (existingUser) {
       return {
         errors: {
-          email: ["A user with this email already exists."],
+          form: ["A user with this email already exists."],
         },
       };
     }

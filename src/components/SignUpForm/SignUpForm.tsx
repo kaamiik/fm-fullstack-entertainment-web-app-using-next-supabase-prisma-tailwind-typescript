@@ -56,7 +56,7 @@ function SignUpForm() {
             {errors.root.message}
           </p>
         )}
-        <div className="grid gap-6 mt-4">
+        <div className="grid gap-6">
           <FormInput
             {...register("email")}
             label="Email"
