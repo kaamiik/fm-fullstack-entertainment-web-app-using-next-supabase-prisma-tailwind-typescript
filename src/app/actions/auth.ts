@@ -1,17 +1,20 @@
-import { signUpSchema, FormState } from "@/app/lib/definitions";
+import { signUpSchema, FormState, SignUpSchema } from "@/app/lib/definitions";
 
-export async function signUp(state: FormState, formData: FormData) {
-  const validateFields = signUpSchema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password"),
-    confirmPassword: formData.get("confirmPassword"),
-  });
+export async function signUp(state: FormState, data: SignUpSchema) {
+  // Server-side validation for security
+  const validatedFields = signUpSchema.safeParse(data);
 
-  if (!validateFields.success) {
+  // If server-side validation fails, return errors
+  if (!validatedFields.success) {
     return {
-      errors: validateFields.error.flatten().fieldErrors,
+      errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
-  // Call the provider or db to create a user...
+  const { email, password } = validatedFields.data;
+
+  // TODO: Call the provider or db to create a user...
+  console.log("Creating user:", { email, password });
+
+  return { message: "User created successfully!" };
 }

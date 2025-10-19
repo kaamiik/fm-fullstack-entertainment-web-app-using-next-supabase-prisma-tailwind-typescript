@@ -19,6 +19,8 @@ export const signUpSchema = z
     path: ["confirmPassword"],
   });
 
+export type SignUpSchema = z.infer<typeof signUpSchema>;
+
 export type FormState =
   | {
       errors?: {

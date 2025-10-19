@@ -4,16 +4,12 @@ import { useForm } from "react-hook-form";
 import { signUp } from "@/app/actions/auth";
 import Button from "../Button";
 import FormInput from "../FormInput";
-import { z } from "zod";
-import { signUpSchema } from "@/app/lib/definitions";
+import { signUpSchema, SignUpSchema } from "@/app/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AccountRedirect from "../AccountRedirect";
 
-type SignUpSchema = z.infer<typeof signUpSchema>;
-
 function SignUpForm() {
-  const [state, action, pending] = React.useActionState(signUp, undefined);
-
+  const [state, action] = React.useActionState(signUp, undefined);
   const {
     register,
     handleSubmit,
@@ -23,17 +19,10 @@ function SignUpForm() {
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = async (data: SignUpSchema) => {
-    // Create FormData to send to server action
-    const formData = new FormData();
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-
-    // Call the server action
-    action(formData);
-
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
+  const onSubmit = (data: SignUpSchema) => {
+    React.startTransition(() => {
+      action(data);
+    });
     reset();
   };
 
@@ -76,6 +65,11 @@ function SignUpForm() {
         linkText="Login"
         href="/login"
       />
+      {state?.message && (
+        <div className="mt-4 p-3 bg-green-100 text-green-700 rounded text-sm">
+          {state.message}
+        </div>
+      )}
     </div>
   );
 }
