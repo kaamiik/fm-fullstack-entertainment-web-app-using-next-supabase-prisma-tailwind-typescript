@@ -1,6 +1,11 @@
 "use server";
 
-import { signUpSchema, type SignUpSchema } from "@/app/lib/definitions";
+import {
+  signUpSchema,
+  loginSchema,
+  type SignUpSchema,
+  type LoginSchema,
+} from "@/app/lib/definitions";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { createSession, deleteSession } from "../lib/session";
@@ -58,6 +63,57 @@ export async function signUp(data: SignUpSchema) {
     };
   }
 
+  redirect("/");
+}
+
+export async function login(data: { email: string; password: string }) {
+  const validatedFields = loginSchema.safeParse(data);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  const { email, password } = validatedFields.data;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      return {
+        errors: {
+          form: ["Invalid email or password."],
+        },
+      };
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return {
+        errors: {
+          form: ["Invalid email or password."],
+        },
+      };
+    }
+
+    await createSession(user.id);
+  } catch (error) {
+    if (error instanceof Error && error.message.includes("NEXT_REDIRECT")) {
+      throw error;
+    }
+
+    console.error("Database error:", error);
+
+    return {
+      errors: {
+        form: ["An error occurred while logging in. Please try again later."],
+      },
+    };
+  }
   redirect("/");
 }
 

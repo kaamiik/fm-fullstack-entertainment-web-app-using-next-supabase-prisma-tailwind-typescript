@@ -21,6 +21,17 @@ export const signUpSchema = z
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;
 
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Can't be empty")
+    .email("Invalid email address")
+    .trim(),
+  password: z.string().min(1, "Can't be empty").trim(),
+});
+
+export type LoginSchema = z.infer<typeof loginSchema>;
+
 export type SessionPayload = {
   userId: string;
   expiresAt: Date;
