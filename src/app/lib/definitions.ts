@@ -20,3 +20,8 @@ export const signUpSchema = z
   });
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;
+
+export type SessionPayload = {
+  userId: string;
+  expiresAt: Date;
+};

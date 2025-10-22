@@ -3,28 +3,19 @@
 import { signUpSchema, type SignUpSchema } from "@/app/lib/definitions";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import { createSession, deleteSession } from "../lib/session";
+import { redirect } from "next/navigation";
 
 export async function signUp(data: SignUpSchema) {
-  if (!process.env.DATABASE_URL) {
-    console.error("Missing DATABASE_URL environment variable");
-    return {
-      errors: {
-        form: [
-          "Server is not configured to access the database. Please set DATABASE_URL.",
-        ],
-      },
-    };
-  }
-  const validateFields = signUpSchema.safeParse(data);
+  const validatedFields = signUpSchema.safeParse(data);
 
-  // If server-side validation fails, return errors
-  if (!validateFields.success) {
+  if (!validatedFields.success) {
     return {
-      errors: validateFields.error.flatten().fieldErrors,
+      errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
-  const { email, password } = validateFields.data;
+  const { email, password } = validatedFields.data;
 
   try {
     const existingUser = await prisma.user.findUnique({
@@ -51,18 +42,26 @@ export async function signUp(data: SignUpSchema) {
 
     console.log("Created user:", user.id);
 
-    return {
-      message: "User created successfully!",
-      userId: user.id,
-    };
+    await createSession(user.id);
   } catch (error) {
+    if (error instanceof Error && error.message.includes("NEXT_REDIRECT")) {
+      throw error;
+    }
+
     console.error("Database error:", error);
     return {
       errors: {
         form: [
-          "An error occurred while creating your account. Please try again.",
+          "An error occurred while creating your account. Please try again later.",
         ],
       },
     };
   }
+
+  redirect("/");
+}
+
+export async function logout() {
+  await deleteSession();
+  redirect("/login");
 }

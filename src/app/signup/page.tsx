@@ -1,10 +1,13 @@
+import SignUpForm from "@/components/SignUpForm";
 import PageHeader from "@/components/PageHeader";
-import { prisma } from "@/lib/prisma";
-export default function Home() {
+
+export default function SignUpPage() {
   return (
     <div className="grid gap-14 p-6 pt-12 md:gap-20 md:p-8 md:pt-18">
       <PageHeader />
-      <main className=""></main>
+      <main className="">
+        <SignUpForm />
+      </main>
     </div>
   );
 }
