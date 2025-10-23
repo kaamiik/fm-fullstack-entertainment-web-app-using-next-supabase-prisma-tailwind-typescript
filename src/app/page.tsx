@@ -1,5 +1,4 @@
 import PageHeader from "@/components/PageHeader";
-import { prisma } from "@/lib/prisma";
 import { getUser } from "./lib/dal";
 import { redirect } from "next/navigation";
 export default async function Home() {

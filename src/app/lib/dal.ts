@@ -6,14 +6,30 @@ import { decrypt } from "@/app/lib/session";
 import { redirect } from "next/navigation";
 
 export const getSession = React.cache(async () => {
-  const cookie = (await cookies()).get("session")?.value;
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get("session")?.value;
   const session = await decrypt(cookie);
 
   if (!session) {
     return null;
   }
 
-  return session;
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId as string },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return session;
+  } catch (error) {
+    console.error("Error verifying user existence:", error);
+
+    return null;
+  }
 });
 
 export const verifySession = React.cache(async () => {
