@@ -1,5 +1,5 @@
 import SignUpForm from "@/components/SignUpForm";
-import PageHeader from "@/components/PageHeader";
+import AuthHeader from "@/components/AuthHeader";
 import { getSession } from "../lib/dal";
 import { redirect } from "next/navigation";
 
@@ -11,7 +11,7 @@ export default async function SignUpPage() {
   }
   return (
     <div className="grid gap-14 p-6 pt-12 md:gap-20 md:p-8 md:pt-18">
-      <PageHeader />
+      <AuthHeader />
       <main className="">
         <SignUpForm />
       </main>
