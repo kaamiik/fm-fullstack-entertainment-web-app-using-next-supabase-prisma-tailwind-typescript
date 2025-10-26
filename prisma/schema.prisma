@@ -10,15 +10,27 @@ datasource db {
 }
 
 model Media {
-  id           Int     @id @default(autoincrement())
-  title        String
-  slug         String  @unique
-  thumbnail    Json
-  year         Int
-  category     String
-  rating       String
-  isBookmarked Boolean @default(false)
-  isTrending   Boolean @default(false)
+  id         Int     @id @default(autoincrement())
+  title      String
+  slug       String  @unique
+  thumbnail  Json
+  year       Int
+  category   String
+  rating     String
+  isTrending Boolean @default(false)
+
+  bookmarks Bookmark[]
+}
+
+model Bookmark {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  mediaId   Int
+  createdAt DateTime @default(now())
+
+  @@unique([userId, mediaId])
 }
 
 model User {
@@ -28,5 +40,20 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  bookmarks Bookmark[]
+  Session   Session[]
+
   @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("sessions")
 }

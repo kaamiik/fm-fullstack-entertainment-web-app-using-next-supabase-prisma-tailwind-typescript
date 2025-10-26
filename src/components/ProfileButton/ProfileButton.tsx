@@ -1,7 +1,17 @@
+"use client";
+
+import { logout } from "@/app/actions/auth";
 import Image from "next/image";
 import * as React from "react";
 
 function ProfileButton({ className = "" }: { className?: string }) {
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
   return (
     <button
       className={`
@@ -10,6 +20,7 @@ function ProfileButton({ className = "" }: { className?: string }) {
         transition-colors ease-in duration-75 ${className}
       `}
       aria-labelledby="profile-btn"
+      onClick={handleLogout}
     >
       <span id="profile-btn" hidden>
         PROFILE

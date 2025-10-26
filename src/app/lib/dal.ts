@@ -2,29 +2,35 @@ import "server-only";
 import * as React from "react";
 import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
-import { decrypt } from "@/app/lib/session";
+import { decrypt, deleteSession } from "@/app/lib/session";
 import { redirect } from "next/navigation";
 
 export const getSession = React.cache(async () => {
   const cookieStore = await cookies();
   const cookie = cookieStore.get("session")?.value;
-  const session = await decrypt(cookie);
+  const payload = await decrypt(cookie);
 
-  if (!session) {
+  if (!payload?.sessionId) {
     return null;
   }
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: session.userId as string },
-      select: { id: true },
+    const session = await prisma.session.findUnique({
+      where: { id: payload.sessionId as string },
+      include: { user: true },
     });
 
-    if (!user) {
+    if (!session || session.expiresAt < new Date()) {
+      await deleteSession();
       return null;
     }
 
-    return session;
+    return {
+      sessionId: session.id,
+      userId: session.userId,
+      user: session.user,
+      expiresAt: session.expiresAt,
+    };
   } catch (error) {
     console.error("Error verifying user existence:", error);
 
@@ -33,8 +39,7 @@ export const getSession = React.cache(async () => {
 });
 
 export const verifySession = React.cache(async () => {
-  const cookie = (await cookies()).get("session")?.value;
-  const session = await decrypt(cookie);
+  const session = await getSession();
 
   if (!session?.userId) {
     redirect("/login");
@@ -44,21 +49,8 @@ export const verifySession = React.cache(async () => {
 });
 
 export const getUser = React.cache(async () => {
-  const session = await verifySession();
+  const session = await getSession();
   if (!session) return null;
 
-  try {
-    const user = prisma.user.findUnique({
-      where: { id: session.userId as string },
-      select: {
-        id: true,
-        email: true,
-      },
-    });
-
-    return user;
-  } catch (error) {
-    console.error("Failed to fetch user", error);
-    return null;
-  }
+  return session.user;
 });

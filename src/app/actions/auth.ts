@@ -66,7 +66,7 @@ export async function signUp(data: SignUpSchema) {
   redirect("/");
 }
 
-export async function login(data: { email: string; password: string }) {
+export async function login(data: LoginSchema) {
   const validatedFields = loginSchema.safeParse(data);
 
   if (!validatedFields.success) {
