@@ -3,7 +3,6 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import Button from "../Button";
 import FormInput from "../FormInput";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AccountRedirect from "../AccountRedirect";
 import { loginSchema, type LoginSchema } from "@/app/lib/definitions";
