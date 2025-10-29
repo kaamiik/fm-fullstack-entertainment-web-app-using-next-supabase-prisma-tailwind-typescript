@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import PageHeader from "@/components/AuthHeader";
 
 const outfitSans = Outfit({
   variable: "--font-outfit-sans",
@@ -23,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfitSans.className} bg-blue-950 text-white text-15 font-light antialiased`}
+        className={`${outfitSans.className} bg-blue-950 text-white text-15 font-light antialiased pb-4 md:pb-8 lg:pb-18`}
       >
         {children}
       </body>

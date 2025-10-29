@@ -42,6 +42,7 @@ export const verifySession = React.cache(async () => {
   const session = await getSession();
 
   if (!session?.userId) {
+    await deleteSession();
     redirect("/login");
   }
 

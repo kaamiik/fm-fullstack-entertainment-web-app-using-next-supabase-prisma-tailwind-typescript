@@ -1,4 +1,10 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@plugin "tailwindcss-logical";
+@plugin 'tailwind-scrollbar' {
+  nocompatible: true;
+  preferredstrategy: "pseudoelements";
+}
 
 @theme {
   /* Colors */

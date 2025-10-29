@@ -30,7 +30,9 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
     "prisma": "^6.17.0",
+    "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4",
+    "tailwindcss-logical": "^4.0.0",
     "tsx": "^4.20.6",
     "typescript": "^5"
   }
