@@ -21,7 +21,7 @@ function ItemInfo({
   const HeadingTag = `h${level}` as keyof React.JSX.IntrinsicElements;
 
   return (
-    <div className={clsx("grid gap-2", className)}>
+    <div className={clsx("grid gap-1 sm:gap-2 ", className)}>
       <HeadingTag className={clsx("font-medium order-1", headingClassName)}>
         {children}
       </HeadingTag>

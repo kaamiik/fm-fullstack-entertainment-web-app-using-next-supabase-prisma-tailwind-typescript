@@ -28,7 +28,7 @@ function TrendingItem({ className = "" }: { className?: string }) {
     <li className={`grid grid-cols-1 grid-rows-1 shrink-0 ${className}`}>
       <Link
         href={"/"}
-        className="bg-white/25 flex items-center gap-4 p-2 pe-6 w-fit rounded-full row-start-1 col-start-1 self-center justify-self-center z-10"
+        className="bg-white/25 flex items-center gap-4 p-1 sm:p-2 pe-6 w-fit rounded-full row-start-1 col-start-1 self-center justify-self-center z-10"
       >
         <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -40,7 +40,7 @@ function TrendingItem({ className = "" }: { className?: string }) {
       </Link>
       <form
         action=""
-        className="grid row-start-1 col-start-1 z-10 mt-2 mr-2 md:mt-4 md:mr-6 justify-self-end"
+        className="grid row-start-1 col-start-1 z-10 mt-2 mr-2 md:mt-4 md:mr-6 justify-self-end self-start"
       >
         <button className="px-2.5 bg-black/50 rounded-full aspect-square cursor-pointer outline-0 focus-visible:outline-2 focus-visible:outline-red-500 focus-visible:outline-offset-2">
           <svg width="12" height="14" xmlns="http://www.w3.org/2000/svg">
@@ -67,7 +67,7 @@ function TrendingItem({ className = "" }: { className?: string }) {
         year="2019"
         category="Movie"
         rating="PG"
-        className="px-4 py-4 sm:px-6 row-start-1 col-start-1 self-end"
+        className="px-2 py-2 sm:px-4 sm:py-4 row-start-1 col-start-1 self-end"
         headingClassName="md:text-24"
       >
         Beyond Earth
