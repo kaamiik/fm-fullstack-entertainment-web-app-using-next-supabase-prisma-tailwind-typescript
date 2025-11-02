@@ -12,7 +12,7 @@ function ItemInfo({
 }: {
   children: React.ReactNode;
   year: string;
-  category: "Movie" | "TV Series";
+  category: string;
   rating: string;
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   headingClassName?: string;

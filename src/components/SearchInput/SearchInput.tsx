@@ -1,5 +1,7 @@
 "use client";
 import * as React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 function SearchInput({
   placeholder = "Search for movies or TV series",
@@ -8,10 +10,37 @@ function SearchInput({
   placeholder?: string;
   className?: string;
 }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const debouncedUpdate = useDebouncedCallback((value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (value) {
+      params.set("q", value);
+    } else {
+      params.delete("q");
+    }
+
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }, 300);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const value = inputRef.current?.value || "";
+    debouncedUpdate(value);
+  };
+
+  const handleChange = () => {
+    const value = inputRef.current?.value || "";
+    debouncedUpdate(value);
+  };
+
   return (
     <form
       action=""
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={handleSubmit}
       className={`flex items-start gap-4 md:gap-8 pr-4 md:pr-6 lg:pr-9 ${className}`}
     >
       <label htmlFor="search" className="sr-only">
@@ -30,9 +59,12 @@ function SearchInput({
       </svg>
 
       <input
+        ref={inputRef}
         type="text"
         name="search"
         id="search"
+        defaultValue={searchParams.get("g") || ""}
+        onChange={handleChange}
         placeholder={placeholder}
         className="outline-0 pb-4 ps-2 w-full
          text-18 md:text-24 caret-red-500

@@ -28,6 +28,11 @@
 
   /* Spacing */
   --spacing-18: 4.5rem;
+
+  /* Grid */
+  --my-grid-cols-card-mobile: repeat(auto-fit, minmax(163px, 1fr));
+  --my-grid-cols-card-tablet: repeat(auto-fit, minmax(218px, 1fr));
+  --my-grid-cols-card-desktop: repeat(auto-fit, minmax(230px, 1fr));
 }
 
 body {

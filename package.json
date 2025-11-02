@@ -35,6 +35,7 @@
     "tailwindcss": "^4",
     "tailwindcss-logical": "^4.0.0",
     "tsx": "^4.20.6",
-    "typescript": "^5"
+    "typescript": "^5",
+    "use-debounce": "^10.0.6"
   }
 }
