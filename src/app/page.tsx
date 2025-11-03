@@ -4,32 +4,52 @@ import MainHeader from "@/components/MainHeader";
 import SearchInput from "@/components/SearchInput";
 import TrendingSection from "@/components/TrendingSection";
 import CardSection from "@/components/CardSection";
-import { getRecommendedMedia, getTrendingMedia } from "@/lib/media";
+import SearchResults from "@/components/SearchResults";
+import { getAllMedia } from "@/lib/media";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
   const user = await getUser();
   if (!user) {
     redirect("/login");
   }
 
-  const [trendingMedia, recommendedMedia] = await Promise.all([
-    getTrendingMedia(user.id),
-    getRecommendedMedia(user.id),
-  ]);
+  const { q } = await searchParams;
+  const allMedia = await getAllMedia(user.id);
+
+  const trendingMedia = allMedia.filter((media) => media.isTrending);
+  const recommendedMedia = allMedia.filter((media) => !media.isTrending);
+
+  const searchResults = q
+    ? allMedia.filter((media) =>
+        media.title.toLowerCase().includes(q.toLowerCase())
+      )
+    : [];
 
   return (
     <div className="grid gap-6 lg:grid-cols-[auto_1fr] lg:gap-0">
       <div className="md:pt-6 md:px-6 lg:pt-8 lg:ps-8 lg:pr-0">
         <MainHeader />
       </div>
-      <main className="lg:pl-0 lg:pt-16 flex flex-col gap-6 md:gap-8 lg:gap-10">
-        <h1 className="sr-only">HOME</h1>
-        <SearchInput className="px-4 md:px-6 lg:px-10" />
+      {q ? (
+        <main className="lg:pl-0 lg:pt-16 flex flex-col gap-6 md:gap-8 lg:gap-10">
+          <h1 className="sr-only">HOME</h1>
+          <SearchInput className="px-4 md:px-6 lg:px-10" />
+          <SearchResults media={searchResults} query={q} headingLevel={2} />
+        </main>
+      ) : (
+        <main className="lg:pl-0 lg:pt-16 flex flex-col gap-6 md:gap-8 lg:gap-10">
+          <h1 className="sr-only">HOME</h1>
+          <SearchInput className="px-4 md:px-6 lg:px-10" />
 
-        <TrendingSection trendingMedia={trendingMedia} />
+          <TrendingSection trendingMedia={trendingMedia} />
 
-        <CardSection media={recommendedMedia} />
-      </main>
+          <CardSection media={recommendedMedia} />
+        </main>
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 export type CurrentPath = "/" | "/movies" | "/tv-series" | "/bookmark";
 
-export type TrendingMedia = {
+export type AllMedia = {
   id: number;
   title: string;
   slug: string;
@@ -13,18 +13,6 @@ export type TrendingMedia = {
       small: string;
       large: string;
     };
-  };
-};
-
-export type RecommendedMedia = {
-  id: number;
-  title: string;
-  slug: string;
-  year: number;
-  category: string;
-  rating: string;
-  isBookmarked: boolean;
-  thumbnail: {
     regular?: {
       small: string;
       medium: string;

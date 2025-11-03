@@ -6,7 +6,7 @@ function ItemInfo({
   year,
   category,
   rating,
-  level = 3,
+  headingLevel = 3,
   headingClassName,
   className,
 }: {
@@ -14,11 +14,11 @@ function ItemInfo({
   year: string;
   category: string;
   rating: string;
-  level?: 1 | 2 | 3 | 4 | 5 | 6;
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
   headingClassName?: string;
   className?: string;
 }) {
-  const HeadingTag = `h${level}` as keyof React.JSX.IntrinsicElements;
+  const HeadingTag = `h${headingLevel}` as keyof React.JSX.IntrinsicElements;
 
   return (
     <div className={clsx("grid gap-1 sm:gap-2 ", className)}>

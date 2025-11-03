@@ -1,12 +1,8 @@
 import * as React from "react";
 import TrendingItem from "../TrendingItem";
-import { TrendingMedia } from "@/types/types";
+import { AllMedia } from "@/types/types";
 
-function TrendingSection({
-  trendingMedia,
-}: {
-  trendingMedia: TrendingMedia[];
-}) {
+function TrendingSection({ trendingMedia }: { trendingMedia: AllMedia[] }) {
   return (
     <section aria-labelledby="trending" className="">
       <h2 id="trending" className="text-20 md:text-32 pl-4 md:pl-6 lg:pl-10">

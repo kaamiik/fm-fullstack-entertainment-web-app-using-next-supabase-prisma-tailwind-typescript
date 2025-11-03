@@ -1,9 +1,9 @@
 import * as React from "react";
 import ItemInfo from "../ItemInfo";
 import MediaThumbnail from "../MediaThumbnail";
-import { TrendingMedia } from "@/types/types";
+import { AllMedia } from "@/types/types";
 
-function TrendingItem({ media }: { media: TrendingMedia }) {
+function TrendingItem({ media }: { media: AllMedia }) {
   const trendingThumbnail = media.thumbnail.trending;
 
   return (

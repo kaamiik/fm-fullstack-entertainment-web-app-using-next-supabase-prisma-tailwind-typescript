@@ -17,7 +17,7 @@ function SearchInput({
   const debouncedUpdate = useDebouncedCallback((value: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    if (value) {
+    if (value.trim()) {
       params.set("q", value);
     } else {
       params.delete("q");
@@ -28,12 +28,12 @@ function SearchInput({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const value = inputRef.current?.value || "";
+    const value = inputRef.current?.value.trim() || "";
     debouncedUpdate(value);
   };
 
   const handleChange = () => {
-    const value = inputRef.current?.value || "";
+    const value = inputRef.current?.value.trim() || "";
     debouncedUpdate(value);
   };
 

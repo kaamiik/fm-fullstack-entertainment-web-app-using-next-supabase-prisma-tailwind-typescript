@@ -1,19 +1,21 @@
 import * as React from "react";
 import ItemInfo from "../ItemInfo";
 import MediaThumbnail from "../MediaThumbnail";
-import { RecommendedMedia } from "@/types/types";
+import { AllMedia } from "@/types/types";
 
 function CardItem({
   media,
-  level = 2,
+  headingLevel = 2,
+  className = "",
 }: {
-  media: RecommendedMedia;
-  level?: 1 | 2 | 3 | 4 | 5 | 6;
+  media: AllMedia;
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+  className?: string;
 }) {
   const regularThumbnail = media.thumbnail.regular;
 
   return (
-    <li className="grid gap-2">
+    <li className={`grid gap-2 ${className}`}>
       <MediaThumbnail
         href="/"
         isBookmarked={media.isBookmarked}
@@ -33,7 +35,7 @@ function CardItem({
         rating={media.rating}
         className=""
         headingClassName="text-14 md:text-18"
-        level={level}
+        headingLevel={headingLevel}
       >
         {media.title}
       </ItemInfo>
