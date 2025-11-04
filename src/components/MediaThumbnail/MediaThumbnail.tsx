@@ -1,17 +1,19 @@
 import * as React from "react";
 import { UrlObject } from "url";
 import PlayLink from "../PlayLink";
-import BookmartToggle from "../‌BookmarkToggle";
+import BookmarkToggle from "../‌BookmarkToggle";
 import ResponsivePicture from "../ResponsivePicture";
 
 function MediaThumbnail({
   href,
   isBookmarked = false,
+  mediaId,
   image,
   className = "",
 }: {
   href: string | UrlObject;
   isBookmarked?: boolean;
+  mediaId: number;
   image: {
     desktop?: string;
     tablet: string;
@@ -30,8 +32,9 @@ function MediaThumbnail({
         Play
       </PlayLink>
 
-      <BookmartToggle
+      <BookmarkToggle
         className="grid row-start-1 col-start-1 mt-2 mr-2 md:mt-4 md:mr-6 justify-self-end self-start z-30"
+        mediaId={mediaId}
         isBookmarked={isBookmarked}
       />
 

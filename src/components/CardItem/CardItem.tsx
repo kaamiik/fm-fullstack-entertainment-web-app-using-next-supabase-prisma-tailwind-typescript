@@ -19,6 +19,7 @@ function CardItem({
       <MediaThumbnail
         href="/"
         isBookmarked={media.isBookmarked}
+        mediaId={media.id}
         image={{
           desktop: regularThumbnail?.large || "/assets/fallback-large.jpg",
           tablet: regularThumbnail?.medium || "/assets/fallback-medium.jpg",

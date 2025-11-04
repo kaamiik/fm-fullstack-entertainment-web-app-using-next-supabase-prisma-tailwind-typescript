@@ -11,6 +11,7 @@ function TrendingItem({ media }: { media: AllMedia }) {
       <MediaThumbnail
         href="/"
         isBookmarked={media.isBookmarked}
+        mediaId={media.id}
         image={{
           tablet: trendingThumbnail?.large || "/assets/fallback-large.jpg",
           mobile: trendingThumbnail?.small || "/assets/fallback-small.jpg",

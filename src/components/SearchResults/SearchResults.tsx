@@ -22,12 +22,14 @@ function SearchResults({
       className={`px-4 md:px-6 lg:px-10 relative max-w-[82.5rem] ${className}`}
     >
       {media.length === 0 ? (
-        <p className="text-20 sm:text-5xl font-medium py-20 text-center text-balance">
+        <p className="text-20 sm:text-32 py-20 text-center text-balance">
           {`No results found for ‘${capitalizedQuery}’`}
         </p>
       ) : (
         <p className="text-20 md:text-32">
-          {`Found ${media.length} results for ‘${capitalizedQuery}’`}
+          {`Found ${media.length} ${
+            media.length > 1 ? "results" : "result"
+          } for ‘${capitalizedQuery}’`}
         </p>
       )}
 
