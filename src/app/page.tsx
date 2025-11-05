@@ -6,6 +6,26 @@ import TrendingSection from "@/components/TrendingSection";
 import CardSection from "@/components/CardSection";
 import SearchResults from "@/components/SearchResults";
 import { getAllMedia } from "@/lib/media";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}): Promise<Metadata> {
+  const { q } = await searchParams;
+
+  if (q) {
+    return {
+      title: `Search for "${q}" - Entertainment Web App`,
+    };
+  }
+
+  return {
+    title: "Home - Entertainment Web App",
+    description: "Browse trending and recommended media",
+  };
+}
 
 export default async function Home({
   searchParams,

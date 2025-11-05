@@ -9,7 +9,7 @@ function TrendingItem({ media }: { media: AllMedia }) {
   return (
     <li className="grid grid-cols-1 grid-rows-1 shrink-0 relative">
       <MediaThumbnail
-        href="/"
+        href={`/media/${media.slug}`}
         isBookmarked={media.isBookmarked}
         mediaId={media.id}
         image={{
@@ -19,7 +19,12 @@ function TrendingItem({ media }: { media: AllMedia }) {
           mobileSize: [240, 140],
         }}
         className="max-w-[21rem] sm:max-w-[29.5rem] row-start-1 col-start-1"
-      />
+      >
+        <span aria-hidden="true">Play</span>
+        <span className="sr-only">
+          {`PLAY ${media.category} ${media.title} PRODUCED ON YEAR ${media.year} AND THE RATING IS ${media.rating}`}
+        </span>
+      </MediaThumbnail>
 
       <ItemInfo
         year={media.year.toString()}

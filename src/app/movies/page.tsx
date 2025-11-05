@@ -5,6 +5,26 @@ import SearchInput from "@/components/SearchInput";
 import CardSection from "@/components/CardSection";
 import SearchResults from "@/components/SearchResults";
 import { getAllMedia } from "@/lib/media";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}): Promise<Metadata> {
+  const { q } = await searchParams;
+
+  if (q) {
+    return {
+      title: `Search "${q}" in Movies - Entertainment Web App`,
+    };
+  }
+
+  return {
+    title: "Movies - Entertainment Web App",
+    description: "Browse all movies",
+  };
+}
 
 export default async function MoviesPage({
   searchParams,

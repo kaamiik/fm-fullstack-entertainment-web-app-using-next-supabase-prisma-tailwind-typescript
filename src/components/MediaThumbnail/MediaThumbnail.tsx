@@ -9,6 +9,7 @@ function MediaThumbnail({
   isBookmarked = false,
   mediaId,
   image,
+  children,
   className = "",
 }: {
   href: string | UrlObject;
@@ -22,6 +23,7 @@ function MediaThumbnail({
     tabletSize: [number, number];
     mobileSize: [number, number];
   };
+  children: React.ReactNode;
   className?: string;
 }) {
   return (
@@ -29,7 +31,7 @@ function MediaThumbnail({
       className={`grid grid-cols-1 grid-rows-1 relative has-[a:hover]:[&>picture::before]:bg-black/50 has-[a:focus-visible]:[&>picture::before]:bg-black/50 ${className}`}
     >
       <PlayLink href={href} className="row-start-1 col-start-1">
-        Play
+        {children}
       </PlayLink>
 
       <BookmarkToggle

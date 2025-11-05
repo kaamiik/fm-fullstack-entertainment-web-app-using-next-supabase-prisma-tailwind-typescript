@@ -17,7 +17,7 @@ function CardItem({
   return (
     <li className={`grid gap-2 ${className}`}>
       <MediaThumbnail
-        href="/"
+        href={`/media/${media.slug}`}
         isBookmarked={media.isBookmarked}
         mediaId={media.id}
         image={{
@@ -29,7 +29,12 @@ function CardItem({
           mobileSize: [164, 110],
         }}
         className="max-w-[17.5rem] row-start-1 col-start-1"
-      />
+      >
+        <span aria-hidden="true">Play</span>
+        <span className="sr-only">
+          {`PLAY ${media.category} ${media.title} PRODUCED ON YEAR ${media.year} AND THE RATING IS ${media.rating}`}
+        </span>
+      </MediaThumbnail>
       <ItemInfo
         year={media.year.toString()}
         category={media.category}

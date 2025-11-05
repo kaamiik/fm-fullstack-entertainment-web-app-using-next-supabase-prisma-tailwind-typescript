@@ -1,5 +1,11 @@
 import SignUpForm from "@/components/SignUpForm";
 import AuthHeader from "@/components/AuthHeader";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sign Up - Entertainment Web App",
+  description: "Create your account",
+};
 
 export default async function SignUpPage() {
   return (

@@ -5,6 +5,27 @@ import { getAllMedia } from "@/lib/media";
 import SearchInput from "@/components/SearchInput";
 import SearchResults from "@/components/SearchResults";
 import CardSection from "@/components/CardSection";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}): Promise<Metadata> {
+  const { q } = await searchParams;
+
+  if (q) {
+    return {
+      title: `Search "${q}" in Bookmarked - Entertainment Web App`,
+    };
+  }
+
+  return {
+    title: "Bookmarked - Entertainment Web App",
+    description: "Your bookmarked shows and movies",
+  };
+}
+
 export default async function Home({
   searchParams,
 }: {
