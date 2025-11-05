@@ -26,7 +26,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Home({
+export default async function BookmarkPage({
   searchParams,
 }: {
   searchParams: Promise<{ q?: string }>;

@@ -1,4 +1,9 @@
-export type CurrentPath = "/" | "/movies" | "/tv-series" | "/bookmark";
+export type CurrentPath =
+  | "/"
+  | "/movies"
+  | "/tv-series"
+  | "/bookmark"
+  | `/media/${string}`;
 
 export type AllMedia = {
   id: number;

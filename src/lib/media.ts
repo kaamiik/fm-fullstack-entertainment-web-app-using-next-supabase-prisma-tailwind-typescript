@@ -40,3 +40,49 @@ export async function getAllMedia(userId: string) {
     return [];
   }
 }
+
+export async function getMediaBySlug(slug: string, userId: string) {
+  try {
+    const media = await prisma.media.findFirst({
+      where: {
+        slug: slug,
+      },
+      include: {
+        bookmarks: {
+          where: {
+            userId: userId,
+          },
+        },
+      },
+    });
+
+    if (!media) {
+      return null;
+    }
+
+    return {
+      id: media.id,
+      title: media.title,
+      slug: media.slug,
+      category: media.category,
+      year: media.year,
+      rating: media.rating,
+      isTrending: media.isTrending,
+      thumbnail: media.thumbnail as {
+        trending?: {
+          small: string;
+          large: string;
+        };
+        regular?: {
+          small: string;
+          medium: string;
+          large: string;
+        };
+      },
+      isBookmarked: media.bookmarks.length > 0,
+    };
+  } catch (error) {
+    console.error("Error fetching media by slug:", error);
+    return null;
+  }
+}

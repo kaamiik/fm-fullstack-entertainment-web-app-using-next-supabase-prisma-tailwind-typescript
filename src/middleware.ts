@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { decrypt } from "./app/lib/session";
 import { cookies } from "next/headers";
 
-const protectedRoutes = ["/", "/movies", "/tv-series", "/bookmark"];
+const protectedRoutes = ["/", "/movies", "/tv-series", "/bookmark", "/media"];
 const publicRoutes = ["/signup", "/login"];
 
 export default async function middleware(req: NextRequest) {
