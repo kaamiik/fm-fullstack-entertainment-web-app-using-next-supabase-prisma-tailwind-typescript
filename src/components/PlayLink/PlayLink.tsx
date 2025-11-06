@@ -1,11 +1,11 @@
-import * as React from "react";
-import Link from "next/link";
-import { UrlObject } from "url";
+import * as React from 'react';
+import Link from 'next/link';
+import { UrlObject } from 'url';
 
 function PlayLink({
   children,
   href,
-  className = "",
+  className = '',
 }: {
   children: React.ReactNode;
   href: string | UrlObject;
@@ -14,7 +14,7 @@ function PlayLink({
   return (
     <Link
       href={href}
-      className={`bg-white/25 flex items-center gap-4 p-1 sm:p-2 pe-6 w-fit rounded-full row-start-1 col-start-1 self-center justify-self-center z-20 opacity-0 hover:opacity-100 focus-visible:opacity-100 after:z-20 after:absolute after:content-[''] after:inset-0 outline-0 focus-visible:after:outline-2 focus-visible:after:outline-red-500 focus-visible:after:outline-offset-2 focus-visible:after:rounded-lg transition-opacity duration-150 ${className}`}
+      className={`z-20 col-start-1 row-start-1 flex w-fit items-center gap-4 self-center justify-self-center rounded-full bg-white/25 p-1 pe-6 opacity-0 outline-0 transition-opacity duration-150 after:absolute after:inset-0 after:z-20 after:content-[''] hover:opacity-100 focus-visible:opacity-100 focus-visible:after:rounded-lg focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-red-500 sm:p-2 ${className}`}
     >
       <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg">
         <path

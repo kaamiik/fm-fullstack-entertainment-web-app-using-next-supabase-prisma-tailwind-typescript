@@ -1,6 +1,6 @@
-import * as React from "react";
-import { getImageProps } from "next/image";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import * as React from 'react';
+import { getImageProps } from 'next/image';
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 
 function ResponsivePicture({
   desktopWidth,
@@ -12,7 +12,7 @@ function ResponsivePicture({
   pathDesktop,
   pathTablet,
   pathMobile,
-  className = "",
+  className = '',
 }: {
   desktopWidth?: number | `${number}` | undefined;
   desktopHeight?: number | `${number}` | undefined;
@@ -26,7 +26,7 @@ function ResponsivePicture({
   className?: string;
 }) {
   const common = {
-    alt: "",
+    alt: '',
   };
 
   const desktop =
@@ -57,13 +57,13 @@ function ResponsivePicture({
     src: pathMobile,
   });
   return (
-    <picture className="row-start-1 col-start-1 before:absolute before:content-[''] before:inset-0 before:bg-transparent before:transition-colors before:duration-150">
+    <picture className="col-start-1 row-start-1 before:absolute before:inset-0 before:bg-transparent before:transition-colors before:duration-150 before:content-['']">
       {desktop && <source media="(min-width: 64rem)" srcSet={desktop} />}
       <source media="(min-width: 40rem)" srcSet={tablet} />
       <source media="(min-width: 0)" srcSet={mobile} />
       <img
         {...rest}
-        style={{ width: "100%", height: "auto" }}
+        style={{ width: '100%', height: 'auto' }}
         className={`rounded-lg ${className}`}
         alt=""
       />

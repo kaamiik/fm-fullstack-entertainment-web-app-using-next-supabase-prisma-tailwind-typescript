@@ -1,14 +1,14 @@
-"use client";
-import * as React from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { signUp } from "@/app/actions/auth";
-import Button from "../Button";
-import FormInput from "../FormInput";
-import { signUpSchema, SignUpSchema } from "@/app/lib/definitions";
-import { zodResolver } from "@hookform/resolvers/zod";
-import AccountRedirect from "../AccountRedirect";
-import LoadingDots from "../LoadingDots";
+'use client';
+import * as React from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { signUp } from '@/app/actions/auth';
+import Button from '../Button';
+import FormInput from '../FormInput';
+import { signUpSchema, SignUpSchema } from '@/app/lib/definitions';
+import { zodResolver } from '@hookform/resolvers/zod';
+import AccountRedirect from '../AccountRedirect';
+import LoadingDots from '../LoadingDots';
 
 function SignUpForm() {
   const router = useRouter();
@@ -27,27 +27,27 @@ function SignUpForm() {
       const result = await signUp(data);
 
       if (result?.errors) {
-        if ("form" in result.errors) {
-          setError("root", { message: result.errors.form[0] });
+        if ('form' in result.errors) {
+          setError('root', { message: result.errors.form[0] });
         } else {
           if (result.errors.email) {
-            setError("email", { message: result.errors.email[0] });
+            setError('email', { message: result.errors.email[0] });
           }
           if (result.errors.password) {
-            setError("password", { message: result.errors.password[0] });
+            setError('password', { message: result.errors.password[0] });
           }
           if (result.errors.confirmPassword) {
-            setError("confirmPassword", {
+            setError('confirmPassword', {
               message: result.errors.confirmPassword[0],
             });
           }
         }
       } else if (result?.success) {
         reset();
-        router.replace("/");
+        router.replace('/');
       }
     } catch (error) {
-      console.error("Sign up failed:", error);
+      console.error('Sign up failed:', error);
     }
   };
 
@@ -56,13 +56,13 @@ function SignUpForm() {
       <h1 className="text-32 font-light text-white">Sign Up</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
         {errors.root?.message && (
-          <p className="mb-4 text-13 text-red-500 text-center">
+          <p className="text-13 mb-4 text-center text-red-500">
             {errors.root.message}
           </p>
         )}
         <div className="grid gap-6">
           <FormInput
-            {...register("email")}
+            {...register('email')}
             label="Email"
             type="email"
             name="email"
@@ -70,7 +70,7 @@ function SignUpForm() {
             error={errors.email?.message as string}
           />
           <FormInput
-            {...register("password")}
+            {...register('password')}
             label="Password"
             type="password"
             name="password"
@@ -78,7 +78,7 @@ function SignUpForm() {
             error={errors.password?.message as string}
           />
           <FormInput
-            {...register("confirmPassword")}
+            {...register('confirmPassword')}
             label="Repeat Password"
             type="password"
             name="confirmPassword"
@@ -95,7 +95,7 @@ function SignUpForm() {
           {isSubmitting ? (
             <LoadingDots srText="CREATING ACCOUNT" />
           ) : (
-            "Create an account"
+            'Create an account'
           )}
         </Button>
       </form>

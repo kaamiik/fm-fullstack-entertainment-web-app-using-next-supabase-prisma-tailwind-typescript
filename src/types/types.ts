@@ -1,8 +1,8 @@
 export type CurrentPath =
-  | "/"
-  | "/movies"
-  | "/tv-series"
-  | "/bookmark"
+  | '/'
+  | '/movies'
+  | '/tv-series'
+  | '/bookmark'
   | `/media/${string}`;
 
 export type AllMedia = {

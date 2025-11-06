@@ -1,12 +1,12 @@
-import * as React from "react";
-import ItemInfo from "../ItemInfo";
-import MediaThumbnail from "../MediaThumbnail";
-import { AllMedia } from "@/types/types";
+import * as React from 'react';
+import ItemInfo from '../ItemInfo';
+import MediaThumbnail from '../MediaThumbnail';
+import { AllMedia } from '@/types/types';
 
 function CardItem({
   media,
   headingLevel = 2,
-  className = "",
+  className = '',
 }: {
   media: AllMedia;
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
@@ -21,14 +21,14 @@ function CardItem({
         isBookmarked={media.isBookmarked}
         mediaId={media.id}
         image={{
-          desktop: regularThumbnail?.large || "/assets/fallback-large.jpg",
-          tablet: regularThumbnail?.medium || "/assets/fallback-medium.jpg",
-          mobile: regularThumbnail?.small || "/assets/fallback-small.jpg",
+          desktop: regularThumbnail?.large || '/assets/fallback-large.jpg',
+          tablet: regularThumbnail?.medium || '/assets/fallback-medium.jpg',
+          mobile: regularThumbnail?.small || '/assets/fallback-small.jpg',
           desktopSize: [280, 174],
           tabletSize: [220, 140],
           mobileSize: [164, 110],
         }}
-        className="max-w-[17.5rem] row-start-1 col-start-1"
+        className="col-start-1 row-start-1 max-w-[17.5rem]"
       >
         <span aria-hidden="true">Play</span>
         <span className="sr-only">{`PLAY ${media.title}`}</span>

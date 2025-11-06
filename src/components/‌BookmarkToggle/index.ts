@@ -1,2 +1,2 @@
-export * from "./BookmarkToggle";
-export { default } from "./BookmarkToggle";
+export * from './BookmarkToggle';
+export { default } from './BookmarkToggle';

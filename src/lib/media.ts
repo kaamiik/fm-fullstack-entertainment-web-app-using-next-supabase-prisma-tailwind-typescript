@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -36,7 +36,7 @@ export async function getAllMedia(userId: string) {
       },
     }));
   } catch (error) {
-    console.error("Error fetching all media:", error);
+    console.error('Error fetching all media:', error);
     return [];
   }
 }
@@ -82,7 +82,7 @@ export async function getMediaBySlug(slug: string, userId: string) {
       isBookmarked: media.bookmarks.length > 0,
     };
   } catch (error) {
-    console.error("Error fetching media by slug:", error);
+    console.error('Error fetching media by slug:', error);
     return null;
   }
 }

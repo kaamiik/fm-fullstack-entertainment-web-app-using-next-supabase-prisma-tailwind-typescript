@@ -1,5 +1,5 @@
-import * as React from "react";
-import { clsx } from "clsx";
+import * as React from 'react';
+import { clsx } from 'clsx';
 
 function ItemInfo({
   children,
@@ -21,20 +21,20 @@ function ItemInfo({
   const HeadingTag = `h${headingLevel}` as keyof React.JSX.IntrinsicElements;
 
   return (
-    <div className={clsx("grid gap-1 sm:gap-2 ", className)}>
-      <HeadingTag className={clsx("font-medium order-1", headingClassName)}>
+    <div className={clsx('grid gap-1 sm:gap-2', className)}>
+      <HeadingTag className={clsx('order-1 font-medium', headingClassName)}>
         {children}
       </HeadingTag>
 
       <dl className="flex items-center gap-2">
         <div>
           <dt className="sr-only">YEAR</dt>
-          <dd className="opacity-75 text-12 sm:text-15">{year}</dd>
+          <dd className="text-12 sm:text-15 opacity-75">{year}</dd>
         </div>
 
-        <div className="flex items-center gap-1.5 before:content-['•'] before:opacity-50">
+        <div className="flex items-center gap-1.5 before:opacity-50 before:content-['•']">
           <dt className="sr-only">CATEGORY</dt>
-          {category === "Movie" ? (
+          {category === 'Movie' ? (
             <svg
               width="12"
               height="12"
@@ -57,12 +57,12 @@ function ItemInfo({
               />
             </svg>
           )}
-          <dd className="opacity-75 text-12 sm:text-15">{category}</dd>
+          <dd className="text-12 sm:text-15 opacity-75">{category}</dd>
         </div>
 
-        <div className="flex items-center gap-1.5 before:content-['•'] before:opacity-50">
+        <div className="flex items-center gap-1.5 before:opacity-50 before:content-['•']">
           <dt className="sr-only">RATING</dt>
-          <dd className="opacity-75 text-12 sm:text-15">{rating}</dd>
+          <dd className="text-12 sm:text-15 opacity-75">{rating}</dd>
         </div>
       </dl>
     </div>

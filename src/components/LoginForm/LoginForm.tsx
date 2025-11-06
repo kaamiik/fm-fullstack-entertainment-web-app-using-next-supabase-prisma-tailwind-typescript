@@ -1,14 +1,14 @@
-"use client";
-import * as React from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import Button from "../Button";
-import FormInput from "../FormInput";
-import { zodResolver } from "@hookform/resolvers/zod";
-import AccountRedirect from "../AccountRedirect";
-import { loginSchema, type LoginSchema } from "@/app/lib/definitions";
-import { login } from "@/app/actions/auth";
-import LoadingDots from "../LoadingDots";
+'use client';
+import * as React from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import Button from '../Button';
+import FormInput from '../FormInput';
+import { zodResolver } from '@hookform/resolvers/zod';
+import AccountRedirect from '../AccountRedirect';
+import { loginSchema, type LoginSchema } from '@/app/lib/definitions';
+import { login } from '@/app/actions/auth';
+import LoadingDots from '../LoadingDots';
 
 function LoginForm() {
   const router = useRouter();
@@ -27,28 +27,28 @@ function LoginForm() {
       const result = await login(data);
 
       if (result?.errors) {
-        if ("form" in result.errors) {
-          setError("root", { message: result.errors.form[0] });
+        if ('form' in result.errors) {
+          setError('root', { message: result.errors.form[0] });
         } else {
           if (result.errors.email) {
-            setError("email", { message: result.errors.email[0] });
+            setError('email', { message: result.errors.email[0] });
           }
           if (result.errors.password) {
-            setError("password", { message: result.errors.password[0] });
+            setError('password', { message: result.errors.password[0] });
           }
         }
       } else if (result?.success) {
         reset();
-        router.replace("/");
+        router.replace('/');
       }
     } catch (error) {
-      if (error instanceof Error && error.message.includes("NEXT_REDIRECT")) {
+      if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
         return;
       }
-      console.error("Login error:", error);
-      setError("root", {
-        type: "server",
-        message: "An unexpected error occurred.",
+      console.error('Login error:', error);
+      setError('root', {
+        type: 'server',
+        message: 'An unexpected error occurred.',
       });
     }
   };
@@ -57,13 +57,13 @@ function LoginForm() {
       <h1 className="text-32 font-light text-white">Login</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
         {errors.root?.message && (
-          <p className="mb-4 text-13 text-red-500 text-center">
+          <p className="text-13 mb-4 text-center text-red-500">
             {errors.root.message}
           </p>
         )}
         <div className="grid gap-6">
           <FormInput
-            {...register("email")}
+            {...register('email')}
             label="Email"
             type="email"
             name="email"
@@ -71,7 +71,7 @@ function LoginForm() {
             error={errors.email?.message as string}
           />
           <FormInput
-            {...register("password")}
+            {...register('password')}
             label="Password"
             type="password"
             name="password"
@@ -83,7 +83,7 @@ function LoginForm() {
           {isSubmitting ? (
             <LoadingDots srText="LOGGING IN" />
           ) : (
-            "Login to your account"
+            'Login to your account'
           )}
         </Button>
       </form>

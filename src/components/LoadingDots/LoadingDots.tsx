@@ -1,21 +1,21 @@
-import * as React from "react";
+import * as React from 'react';
 
 function LoadingDots({ srText }: { srText: string }) {
   return (
     <>
-      <span id="logging-in" hidden>
+      <span id="loading-text" hidden>
         {srText}
       </span>
       <span
-        aria-labelledby="logging-in"
+        aria-labelledby="loading-text"
         aria-hidden="true"
         className="flex items-center justify-center space-x-1"
       >
-        <span className="animate-bounce">●</span>
-        <span className="animate-bounce" style={{ animationDelay: "0.08s" }}>
+        <span className="animate-pulse">●</span>
+        <span className="animate-pulse" style={{ animationDelay: '0.2s' }}>
           ●
         </span>
-        <span className="animate-bounce" style={{ animationDelay: "0.16s" }}>
+        <span className="animate-pulse" style={{ animationDelay: '0.4s' }}>
           ●
         </span>
       </span>

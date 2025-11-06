@@ -1,10 +1,10 @@
-import LoginForm from "@/components/LoginForm";
-import AuthHeader from "@/components/AuthHeader";
-import { Metadata } from "next";
+import LoginForm from '@/components/LoginForm';
+import AuthHeader from '@/components/AuthHeader';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Login - Entertainment Web App",
-  description: "Sign in to your account",
+  title: 'Login - Entertainment Web App',
+  description: 'Sign in to your account',
 };
 
 export default async function LoginPage() {

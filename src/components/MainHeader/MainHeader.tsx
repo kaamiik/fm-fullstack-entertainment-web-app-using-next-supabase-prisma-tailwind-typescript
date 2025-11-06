@@ -1,13 +1,13 @@
-import * as React from "react";
-import PageLink from "../PageLink";
-import Logout from "../Logout";
-import Navbar from "../Navbar";
-import { type CurrentPath } from "@/types/types";
+import * as React from 'react';
+import PageLink from '../PageLink';
+import Logout from '../Logout';
+import Navbar from '../Navbar';
+import { type CurrentPath } from '@/types/types';
 
-function MainHeader({ currentPath = "/" }: { currentPath?: CurrentPath }) {
+function MainHeader({ currentPath = '/' }: { currentPath?: CurrentPath }) {
   return (
-    <header className="p-4 md:p-5 lg:p-8 md:rounded-[10px] bg-blue-900 flex lg:flex-col lg:min-h-[960px] items-center justify-between gap-2">
-      <div className="flex items-center lg:flex-col lg:gap-18 w-full">
+    <header className="flex items-center justify-between gap-2 bg-blue-900 p-4 md:rounded-[10px] md:p-5 lg:min-h-[960px] lg:flex-col lg:p-8">
+      <div className="flex w-full items-center lg:flex-col lg:gap-18">
         <PageLink />
         <Navbar
           currentPath={currentPath}

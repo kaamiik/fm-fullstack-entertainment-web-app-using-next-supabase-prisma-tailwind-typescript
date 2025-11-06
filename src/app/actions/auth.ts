@@ -1,15 +1,15 @@
-"use server";
+'use server';
 
 import {
   signUpSchema,
   loginSchema,
   type SignUpSchema,
   type LoginSchema,
-} from "@/app/lib/definitions";
-import { prisma } from "@/lib/prisma";
-import bcrypt from "bcryptjs";
-import { createSession, deleteSession } from "../lib/session";
-import { redirect } from "next/navigation";
+} from '@/app/lib/definitions';
+import { prisma } from '@/lib/prisma';
+import bcrypt from 'bcryptjs';
+import { createSession, deleteSession } from '../lib/session';
+import { redirect } from 'next/navigation';
 
 export async function signUp(data: SignUpSchema) {
   const validatedFields = signUpSchema.safeParse(data);
@@ -30,7 +30,7 @@ export async function signUp(data: SignUpSchema) {
     if (existingUser) {
       return {
         errors: {
-          form: ["A user with this email already exists."],
+          form: ['A user with this email already exists.'],
         },
       };
     }
@@ -49,15 +49,15 @@ export async function signUp(data: SignUpSchema) {
 
     return { success: true };
   } catch (error) {
-    if (error instanceof Error && error.message.includes("NEXT_REDIRECT")) {
+    if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
       throw error;
     }
 
-    console.error("Database error:", error);
+    console.error('Database error:', error);
     return {
       errors: {
         form: [
-          "An error occurred while creating your account. Please try again later.",
+          'An error occurred while creating your account. Please try again later.',
         ],
       },
     };
@@ -83,7 +83,7 @@ export async function login(data: LoginSchema) {
     if (!user) {
       return {
         errors: {
-          form: ["Invalid email or password."],
+          form: ['There is no user with this email'],
         },
       };
     }
@@ -93,7 +93,7 @@ export async function login(data: LoginSchema) {
     if (!passwordMatch) {
       return {
         errors: {
-          form: ["Invalid email or password."],
+          form: ['Invalid password.'],
         },
       };
     }
@@ -101,15 +101,15 @@ export async function login(data: LoginSchema) {
     await createSession(user.id);
     return { success: true };
   } catch (error) {
-    if (error instanceof Error && error.message.includes("NEXT_REDIRECT")) {
+    if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
       throw error;
     }
 
-    console.error("Database error:", error);
+    console.error('Database error:', error);
 
     return {
       errors: {
-        form: ["An error occurred while logging in. Please try again later."],
+        form: ['An error occurred while logging in. Please try again later.'],
       },
     };
   }
@@ -117,5 +117,5 @@ export async function login(data: LoginSchema) {
 
 export async function logout() {
   await deleteSession();
-  redirect("/login");
+  redirect('/login');
 }

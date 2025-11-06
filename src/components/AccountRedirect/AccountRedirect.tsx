@@ -1,11 +1,11 @@
-import * as React from "react";
-import Link from "next/link";
+import * as React from 'react';
+import Link from 'next/link';
 
 function AccountRedirect({
   prompt,
   linkText,
   href,
-  className = "",
+  className = '',
 }: {
   prompt: string;
   linkText: string;
@@ -17,7 +17,7 @@ function AccountRedirect({
       <span>{prompt}</span>
       <Link
         href={href}
-        className="text-red-500 hover:underline focus-visible:outline-white focus-visible:outline focus-visible:outline-offset-2"
+        className="text-red-500 hover:underline focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-white"
       >
         {linkText}
       </Link>

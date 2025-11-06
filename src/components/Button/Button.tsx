@@ -10,7 +10,7 @@ function Button({
 }) {
   return (
     <button
-      className={`text-white text-15 font-light bg-red-500 rounded-md py-4 px-2 w-full text-center cursor-pointer outline-0 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-500 focus-visible:bg-white focus-visible:text-black hover:bg-white hover:text-black transition-colors ease-in duration-75 ${className}`}
+      className={`text-15 w-full cursor-pointer rounded-md bg-red-500 px-2 py-4 text-center font-light text-white outline-0 transition-colors duration-75 ease-in hover:bg-white hover:text-black focus-visible:bg-white focus-visible:text-black focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-red-500 ${className}`}
       {...delegated}
     >
       {children}

@@ -1,11 +1,11 @@
-import Link from "next/link";
-import * as React from "react";
+import Link from 'next/link';
+import * as React from 'react';
 
 function PageLink() {
   return (
     <Link
       href="/"
-      className="outline-0 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+      className="outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       aria-labelledby="page-logo"
     >
       <svg width="33" height="27" xmlns="http://www.w3.org/2000/svg">

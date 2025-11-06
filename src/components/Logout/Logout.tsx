@@ -1,25 +1,20 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { logout } from "@/app/actions/auth";
-import { useFormStatus } from "react-dom";
+import * as React from 'react';
+import { logout } from '@/app/actions/auth';
+import { useFormStatus } from 'react-dom';
 
-function LogoutButton({ className = "" }: { className?: string }) {
+function LogoutButton({ className = '' }: { className?: string }) {
   const { pending } = useFormStatus();
 
   return (
     <button
       disabled={pending}
-      className={`
-        cursor-pointer
-        outline-0 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2
-        transition-colors ease-in duration-75 ${className}
-        ${pending ? "opacity-50 cursor-not-allowed" : ""}
-      `}
+      className={`cursor-pointer outline-0 transition-colors duration-75 ease-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${className} ${pending ? 'cursor-not-allowed opacity-50' : ''} `}
       aria-labelledby="logout"
     >
       <span id="logout" hidden>
-        {pending ? "LOGGING OUT" : "LOG OUT"}
+        {pending ? 'LOGGING OUT' : 'LOG OUT'}
       </span>
       <svg
         width="32px"
@@ -27,7 +22,7 @@ function LogoutButton({ className = "" }: { className?: string }) {
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={pending ? "opacity-50" : ""}
+        className={pending ? 'opacity-50' : ''}
       >
         <path
           d="M12.9999 2C10.2385 2 7.99991 4.23858 7.99991 7C7.99991 7.55228 8.44762 8 8.99991 8C9.55219 8 9.99991 7.55228 9.99991 7C9.99991 5.34315 11.3431 4 12.9999 4H16.9999C18.6568 4 19.9999 5.34315 19.9999 7V17C19.9999 18.6569 18.6568 20 16.9999 20H12.9999C11.3431 20 9.99991 18.6569 9.99991 17C9.99991 16.4477 9.55219 16 8.99991 16C8.44762 16 7.99991 16.4477 7.99991 17C7.99991 19.7614 10.2385 22 12.9999 22H16.9999C19.7613 22 21.9999 19.7614 21.9999 17V7C21.9999 4.23858 19.7613 2 16.9999 2H12.9999Z"
@@ -46,7 +41,7 @@ function LogoutButton({ className = "" }: { className?: string }) {
   );
 }
 
-function Logout({ className = "" }: { className?: string }) {
+function Logout({ className = '' }: { className?: string }) {
   return (
     <form action={logout}>
       <LogoutButton className={className} />

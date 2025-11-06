@@ -1,11 +1,11 @@
-"use client";
-import * as React from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
+'use client';
+import * as React from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 
 function SearchInput({
-  placeholder = "Search for movies or TV series",
-  className = "",
+  placeholder = 'Search for movies or TV series',
+  className = '',
 }: {
   placeholder?: string;
   className?: string;
@@ -18,9 +18,9 @@ function SearchInput({
     const params = new URLSearchParams(searchParams.toString());
 
     if (value.trim()) {
-      params.set("q", value);
+      params.set('q', value);
     } else {
-      params.delete("q");
+      params.delete('q');
     }
 
     router.replace(`?${params.toString()}`, { scroll: false });
@@ -28,12 +28,12 @@ function SearchInput({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const value = inputRef.current?.value.trim() || "";
+    const value = inputRef.current?.value.trim() || '';
     debouncedUpdate(value);
   };
 
   const handleChange = () => {
-    const value = inputRef.current?.value.trim() || "";
+    const value = inputRef.current?.value.trim() || '';
     debouncedUpdate(value);
   };
 
@@ -41,14 +41,14 @@ function SearchInput({
     <form
       action=""
       onSubmit={handleSubmit}
-      className={`flex items-start gap-4 md:gap-8 pr-4 md:pr-6 lg:pr-9 ${className}`}
+      className={`flex items-start gap-4 pr-4 md:gap-8 md:pr-6 lg:pr-9 ${className}`}
     >
       <label htmlFor="search" className="sr-only">
         search
       </label>
 
       <svg
-        className="w-6 h-6 md:w-8 md:h-8"
+        className="h-6 w-6 md:h-8 md:w-8"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 32 32"
       >
@@ -63,14 +63,10 @@ function SearchInput({
         type="text"
         name="search"
         id="search"
-        defaultValue={searchParams.get("g") || ""}
+        defaultValue={searchParams.get('g') || ''}
         onChange={handleChange}
         placeholder={placeholder}
-        className="outline-0 pb-4 ps-2 w-full
-         text-18 md:text-24 caret-red-500
-         border-b border-transparent
-         transition-all duration-100
-         hover:border-b-blue-500 focus-visible:border-b-white"
+        className="text-18 md:text-24 w-full border-b border-transparent ps-2 pb-4 caret-red-500 outline-0 transition-all duration-100 hover:border-b-blue-500 focus-visible:border-b-white"
       />
       <button className="sr-only">Submit</button>
     </form>

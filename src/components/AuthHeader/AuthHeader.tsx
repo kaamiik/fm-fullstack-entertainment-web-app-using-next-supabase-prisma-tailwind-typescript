@@ -1,5 +1,5 @@
-import * as React from "react";
-import PageLink from "../PageLink";
+import * as React from 'react';
+import PageLink from '../PageLink';
 
 function AuthHeader() {
   return (

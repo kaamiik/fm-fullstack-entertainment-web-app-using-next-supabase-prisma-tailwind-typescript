@@ -1,2 +1,2 @@
-export * from "./AuthHeader";
-export { default } from "./AuthHeader";
+export * from './AuthHeader';
+export { default } from './AuthHeader';

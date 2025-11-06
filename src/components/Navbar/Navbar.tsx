@@ -1,10 +1,10 @@
-import Link from "next/link";
-import * as React from "react";
+import Link from 'next/link';
+import * as React from 'react';
 
 const navLinks = [
   {
-    href: "/",
-    label: "HOME",
+    href: '/',
+    label: 'HOME',
     svg: (
       <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -15,8 +15,8 @@ const navLinks = [
     ),
   },
   {
-    href: "/movies",
-    label: "MOVIES",
+    href: '/movies',
+    label: 'MOVIES',
     svg: (
       <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -27,8 +27,8 @@ const navLinks = [
     ),
   },
   {
-    href: "/tv-series",
-    label: "TV SERIES",
+    href: '/tv-series',
+    label: 'TV SERIES',
     svg: (
       <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -39,8 +39,8 @@ const navLinks = [
     ),
   },
   {
-    href: "/bookmark",
-    label: "BOOKMARKED",
+    href: '/bookmark',
+    label: 'BOOKMARKED',
     svg: (
       <svg width="17" height="20" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -54,7 +54,7 @@ const navLinks = [
 
 function Navbar({
   currentPath,
-  className = "",
+  className = '',
 }: {
   currentPath: string;
   className?: string;
@@ -66,21 +66,15 @@ function Navbar({
       </span>
       <ul
         role="list"
-        className="flex items-center gap-6 lg:flex-col md:gap-8 lg:gap-10"
+        className="flex items-center gap-6 md:gap-8 lg:flex-col lg:gap-10"
       >
         {navLinks.map(({ href, label, svg }) => (
           <li key={href}>
             <Link
               href={href}
-              aria-current={currentPath === href ? "page" : false}
+              aria-current={currentPath === href ? 'page' : false}
               aria-label={label}
-              className="
-                outline-0 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 rounded-sm
-                [&_svg_path]:transition-colors
-                hover:[&_svg_path]:fill-red-500
-                focus-visible:[&_svg_path]:fill-red-500
-                [&[aria-current=page]_svg_path]:fill-white transition-colors ease-in duration-75
-              "
+              className="rounded-sm outline-0 transition-colors duration-75 ease-in focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white [&_svg_path]:transition-colors hover:[&_svg_path]:fill-red-500 focus-visible:[&_svg_path]:fill-red-500 [&[aria-current=page]_svg_path]:fill-white"
             >
               {svg}
               <span hidden>{label}</span>

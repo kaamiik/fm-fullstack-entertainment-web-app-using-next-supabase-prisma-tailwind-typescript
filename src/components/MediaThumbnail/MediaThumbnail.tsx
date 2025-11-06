@@ -1,8 +1,8 @@
-import * as React from "react";
-import { UrlObject } from "url";
-import PlayLink from "../PlayLink";
-import BookmarkToggle from "../‌BookmarkToggle";
-import ResponsivePicture from "../ResponsivePicture";
+import * as React from 'react';
+import { UrlObject } from 'url';
+import PlayLink from '../PlayLink';
+import BookmarkToggle from '../‌BookmarkToggle';
+import ResponsivePicture from '../ResponsivePicture';
 
 function MediaThumbnail({
   href,
@@ -10,7 +10,7 @@ function MediaThumbnail({
   mediaId,
   image,
   children,
-  className = "",
+  className = '',
 }: {
   href: string | UrlObject;
   isBookmarked?: boolean;
@@ -28,14 +28,14 @@ function MediaThumbnail({
 }) {
   return (
     <div
-      className={`grid grid-cols-1 grid-rows-1 relative has-[a:hover]:[&>picture::before]:bg-black/50 has-[a:focus-visible]:[&>picture::before]:bg-black/50 ${className}`}
+      className={`relative grid grid-cols-1 grid-rows-1 has-[a:focus-visible]:[&>picture::before]:bg-black/50 has-[a:hover]:[&>picture::before]:bg-black/50 ${className}`}
     >
-      <PlayLink href={href} className="row-start-1 col-start-1">
+      <PlayLink href={href} className="col-start-1 row-start-1">
         {children}
       </PlayLink>
 
       <BookmarkToggle
-        className="grid row-start-1 col-start-1 mt-2 mr-2 md:mt-4 md:mr-6 justify-self-end self-start z-30"
+        className="z-30 col-start-1 row-start-1 mt-2 mr-2 grid self-start justify-self-end md:mt-4 md:mr-6"
         mediaId={mediaId}
         isBookmarked={isBookmarked}
       />
@@ -50,7 +50,7 @@ function MediaThumbnail({
         pathDesktop={image.desktop}
         pathTablet={image.tablet}
         pathMobile={image.mobile}
-        className="row-start-1 col-start-1"
+        className="col-start-1 row-start-1"
       />
     </div>
   );
