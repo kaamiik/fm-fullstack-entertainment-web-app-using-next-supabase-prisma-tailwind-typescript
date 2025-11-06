@@ -9,6 +9,7 @@ import {
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { createSession, deleteSession } from "../lib/session";
+import { redirect } from "next/navigation";
 
 export async function signUp(data: SignUpSchema) {
   const validatedFields = signUpSchema.safeParse(data);
