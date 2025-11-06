@@ -15,8 +15,6 @@ export async function toggleBookmark(formData: FormData) {
       redirect("/login");
     }
 
-    await updateSession();
-
     const mediaId = Number(formData.get("mediaId"));
 
     if (!mediaId) {
