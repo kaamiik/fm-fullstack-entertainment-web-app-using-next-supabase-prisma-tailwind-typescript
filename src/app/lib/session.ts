@@ -56,46 +56,6 @@ export async function createSession(userId: string) {
   });
 }
 
-export async function updateSession() {
-  const sessionCookie = (await cookies()).get("session")?.value;
-  const payload = await decrypt(sessionCookie);
-
-  if (!sessionCookie || !payload) {
-    return null;
-  }
-
-  // Verify session exists in database
-  const dbSession = await prisma.session.findUnique({
-    where: { id: payload.sessionId as string },
-  });
-
-  if (!dbSession) {
-    await deleteSession();
-    return null;
-  }
-
-  const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-
-  await prisma.session.update({
-    where: { id: payload.sessionId as string },
-    data: { expiresAt: expires },
-  });
-
-  const encryptedSession = await encrypt({
-    sessionId: payload.sessionId as string,
-    expiresAt: expires,
-  });
-
-  const cookieStore = await cookies();
-  cookieStore.set("session", encryptedSession, {
-    httpOnly: true,
-    secure: true,
-    expires: expires,
-    sameSite: "lax",
-    path: "/",
-  });
-}
-
 export async function deleteSession() {
   const cookieStore = await cookies();
   const sessionCookie = cookieStore.get("session")?.value;
