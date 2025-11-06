@@ -2,7 +2,7 @@ import "server-only";
 import * as React from "react";
 import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
-import { decrypt, deleteSession, updateSession } from "@/app/lib/session";
+import { decrypt, deleteSession } from "@/app/lib/session";
 import { redirect } from "next/navigation";
 
 export const getSession = React.cache(async () => {
