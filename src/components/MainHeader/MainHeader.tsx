@@ -1,6 +1,6 @@
 import * as React from "react";
 import PageLink from "../PageLink";
-import ProfileButton from "../ProfileButton";
+import Logout from "../Logout";
 import Navbar from "../Navbar";
 import { type CurrentPath } from "@/types/types";
 
@@ -14,7 +14,7 @@ function MainHeader({ currentPath = "/" }: { currentPath?: CurrentPath }) {
           className="ms-auto me-auto lg:ms-0 lg:me-0"
         />
       </div>
-      <ProfileButton />
+      <Logout />
     </header>
   );
 }

@@ -2,7 +2,7 @@ import "server-only";
 import * as React from "react";
 import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
-import { decrypt, deleteSession } from "@/app/lib/session";
+import { decrypt, deleteSession, updateSession } from "@/app/lib/session";
 import { redirect } from "next/navigation";
 
 export const getSession = React.cache(async () => {
@@ -46,12 +46,16 @@ export const verifySession = React.cache(async () => {
     redirect("/login");
   }
 
+  await updateSession();
+
   return { isAuth: true, userId: session.userId };
 });
 
 export const getUser = React.cache(async () => {
   const session = await getSession();
   if (!session) return null;
+
+  await updateSession();
 
   return session.user;
 });

@@ -1,14 +1,17 @@
 "use client";
 import * as React from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { signUp } from "@/app/actions/auth";
 import Button from "../Button";
 import FormInput from "../FormInput";
 import { signUpSchema, SignUpSchema } from "@/app/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AccountRedirect from "../AccountRedirect";
+import LoadingDots from "../LoadingDots";
 
 function SignUpForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -39,8 +42,9 @@ function SignUpForm() {
             });
           }
         }
-      } else {
+      } else if (result?.success) {
         reset();
+        router.replace("/");
       }
     } catch (error) {
       console.error("Sign up failed:", error);
@@ -82,8 +86,17 @@ function SignUpForm() {
             error={errors.confirmPassword?.message as string}
           />
         </div>
-        <Button className="mt-10" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Creating account..." : "Create an account"}
+        <Button
+          aria-live="polite"
+          className="mt-10"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <LoadingDots srText="CREATING ACCOUNT" />
+          ) : (
+            "Create an account"
+          )}
         </Button>
       </form>
       <AccountRedirect

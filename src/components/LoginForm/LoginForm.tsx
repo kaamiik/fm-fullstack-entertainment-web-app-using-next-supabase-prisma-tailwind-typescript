@@ -1,14 +1,17 @@
 "use client";
 import * as React from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import Button from "../Button";
 import FormInput from "../FormInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AccountRedirect from "../AccountRedirect";
 import { loginSchema, type LoginSchema } from "@/app/lib/definitions";
 import { login } from "@/app/actions/auth";
+import LoadingDots from "../LoadingDots";
 
 function LoginForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -34,8 +37,9 @@ function LoginForm() {
             setError("password", { message: result.errors.password[0] });
           }
         }
-      } else {
+      } else if (result?.success) {
         reset();
+        router.replace("/");
       }
     } catch (error) {
       if (error instanceof Error && error.message.includes("NEXT_REDIRECT")) {
@@ -75,8 +79,12 @@ function LoginForm() {
             error={errors.password?.message as string}
           />
         </div>
-        <Button className="mt-10" disabled={isSubmitting}>
-          {isSubmitting ? "Logging in..." : "Login to your account"}
+        <Button aria-live="polite" className="mt-10" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <LoadingDots srText="LOGGING IN" />
+          ) : (
+            "Login to your account"
+          )}
         </Button>
       </form>
       <AccountRedirect

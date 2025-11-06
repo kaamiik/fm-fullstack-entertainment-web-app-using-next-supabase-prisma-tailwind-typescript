@@ -9,7 +9,6 @@ import {
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { createSession, deleteSession } from "../lib/session";
-import { redirect } from "next/navigation";
 
 export async function signUp(data: SignUpSchema) {
   const validatedFields = signUpSchema.safeParse(data);
@@ -45,9 +44,9 @@ export async function signUp(data: SignUpSchema) {
       },
     });
 
-    console.log("Created user:", user.id);
-
     await createSession(user.id);
+
+    return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message.includes("NEXT_REDIRECT")) {
       throw error;
@@ -62,8 +61,6 @@ export async function signUp(data: SignUpSchema) {
       },
     };
   }
-
-  redirect("/");
 }
 
 export async function login(data: LoginSchema) {
@@ -101,6 +98,7 @@ export async function login(data: LoginSchema) {
     }
 
     await createSession(user.id);
+    return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message.includes("NEXT_REDIRECT")) {
       throw error;
@@ -114,7 +112,6 @@ export async function login(data: LoginSchema) {
       },
     };
   }
-  redirect("/");
 }
 
 export async function logout() {

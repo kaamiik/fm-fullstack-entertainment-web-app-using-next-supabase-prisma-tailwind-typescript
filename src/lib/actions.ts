@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { getUser } from "@/app/lib/dal";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { success } from "zod";
+import { updateSession } from "@/app/lib/session";
 
 const prisma = new PrismaClient();
 
@@ -14,6 +14,8 @@ export async function toggleBookmark(formData: FormData) {
     if (!user) {
       redirect("/login");
     }
+
+    await updateSession();
 
     const mediaId = Number(formData.get("mediaId"));
 
